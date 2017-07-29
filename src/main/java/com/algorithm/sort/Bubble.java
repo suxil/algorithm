@@ -5,9 +5,7 @@ package com.algorithm.sort;
  */
 public class Bubble {
 
-    public void sort() {
-
-        int[] ints = new int[]{234,239,87,71,83,46,59};
+    public void sort(int[] ints) {
 
         for (int i = 0; i < ints.length; i ++) {
             for (int j = i; j < ints.length; j ++) {
@@ -19,13 +17,20 @@ public class Bubble {
             }
         }
 
-        System.out.println(ints);
+        System.out.println("冒泡排序结果：");
+        for (int i = 0; i < ints.length; i++) {
+            System.out.print(ints[i] + ", ");
+        }
 
+        System.out.println(".");
 
     }
 
     public static void main(String[] args) {
-        new Bubble().sort();
+
+        int[] ints = new int[]{234,239,87,71,83,46,59};
+
+        new Bubble().sort(ints);
     }
 
 }
