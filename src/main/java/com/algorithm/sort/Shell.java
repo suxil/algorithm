@@ -1,11 +1,13 @@
 package com.algorithm.sort;
 
+import com.algorithm.utils.SortUtils;
+
 /**
  * Created by Administrator on 2017/7/29 0029.
  */
 public class Shell {
 
-    public void sort(int[] ints) {
+    public static void sort(int[] ints) {
 
         int temp;
 
@@ -27,20 +29,8 @@ public class Shell {
             h = (h - 1) / 3;
         }
 
-        System.out.println("希尔排序结果：");
-        for (int i = 0; i < ints.length; i++) {
-            System.out.print(ints[i] + ", ");
-        }
+        SortUtils.writeTerminalResult("希尔", ints);
 
-        System.out.println(".");
-
-    }
-
-    public static void main(String[] args) {
-
-        int[] ints = new int[]{234,239,87,71,83,46,59};
-
-        new Shell().sort(ints);
     }
 
 }

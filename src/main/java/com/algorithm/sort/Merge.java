@@ -1,11 +1,13 @@
 package com.algorithm.sort;
 
+import com.algorithm.utils.SortUtils;
+
 /**
  * Created by Administrator on 2017/7/29 0029.
  */
 public class Merge {
 
-    public void merge(int ints[], int l, int mid, int r) {
+    public static void merge(int ints[], int l, int mid, int r) {
         int len = r - l + 1;
         int[] temps = new int[len];
         int idx = 0;
@@ -25,7 +27,7 @@ public class Merge {
         }
     }
 
-    public void recursion(int[] ints, int l, int r) {
+    public static void recursion(int[] ints, int l, int r) {
 
         if (l == r) {
             return;
@@ -36,16 +38,16 @@ public class Merge {
         recursion(ints, mid + 1, r);
         merge(ints, l, mid, r);
 
-        System.out.println("递归实现的归并排序结果：");
-        for (int i = 0; i < ints.length; i++) {
-            System.out.print(ints[i] + ", ");
-        }
+    }
 
-        System.out.println(".");
+    public static void recursion(int[] ints) {
+
+        recursion(ints, 0, ints.length - 1);
+        SortUtils.writeTerminalResult("递归实现的归并", ints);
 
     }
 
-    public void iteration(int[] ints, int len) {
+    public static void iteration(int[] ints, int len) {
 
         int l, mid, r;
 
@@ -59,24 +61,12 @@ public class Merge {
             }
         }
 
-        System.out.println("非递归实现的归并排序结果：");
-        for (int i = 0; i < ints.length; i++) {
-            System.out.print(ints[i] + ", ");
-        }
-
-        System.out.println(".");
-
     }
 
-    public static void main(String[] args) {
+    public static void iteration(int[] ints) {
 
-        int[] ints = new int[]{234,239,87,71,83,46,59};
-        int[] ints1 = new int[]{234,239,87,71,83,46,59};
-
-        Merge merge = new Merge();
-
-        merge.recursion(ints, 0, ints.length - 1);
-        merge.iteration(ints1, ints1.length);
+        iteration(ints, ints.length);
+        SortUtils.writeTerminalResult("非递归实现的归并", ints);
 
     }
 
