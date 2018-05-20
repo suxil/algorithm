@@ -7,22 +7,16 @@ import com.algorithm.utils.SortUtils;
  */
 public class Quick {
 
-    public static void change(int[] ints, int i, int j) {
-        int temp = ints[i];
-        ints[i] = ints[j];
-        ints[j] = temp;
-    }
-
     public static int partition(int[] ints, int l, int r) {
         int pivot = ints[r];
         int tail = l - 1;
         for (int i = l; i < r; i++) {
             if (ints[i] <= pivot) {
                 tail ++;
-                change(ints, tail, i);
+                SortUtils.change(ints, tail, i);
             }
         }
-        change(ints, tail + 1, r);
+        SortUtils.change(ints, tail + 1, r);
 
         return tail + 1;
     }

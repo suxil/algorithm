@@ -7,12 +7,6 @@ import com.algorithm.utils.SortUtils;
  */
 public class Cocktail {
 
-    public static void change(int[] ints, int i, int j) {
-        int temp = ints[i];
-        ints[i] = ints[j];
-        ints[j] = temp;
-    }
-
     public static void sort(int[] ints) {
 
         int left = 0;
@@ -21,14 +15,14 @@ public class Cocktail {
         while (left < right) {
             for (int i = left; i < right; i++) {
                 if (ints[i] > ints[i + 1]) {
-                    change(ints, i, i + 1);
+                    SortUtils.change(ints, i, i + 1);
                 }
             }
             right --;
 
             for (int i = right; i > left; i--) {
                 if (ints[i - 1] > ints[i]) {
-                    change(ints, i - 1, i);
+                    SortUtils.change(ints, i - 1, i);
                 }
 
             }

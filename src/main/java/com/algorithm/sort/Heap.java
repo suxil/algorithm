@@ -9,12 +9,6 @@ public class Heap {
 
     private static int heapsize;
 
-    public static void change(int[] ints, int i, int j) {
-        int temp = ints[i];
-        ints[i] = ints[j];
-        ints[j] = temp;
-    }
-
     public static void heapify(int[] ints, int i) {
         int leftChild = 2 * i + 1;
         int rightChild = 2 * i + 2;
@@ -28,7 +22,7 @@ public class Heap {
             largest = rightChild;
         }
         if (largest != i) {
-            change(ints, i, largest);
+            SortUtils.change(ints, i, largest);
             heapify(ints, largest);
         }
     }
@@ -43,7 +37,7 @@ public class Heap {
     public static void sort(int[] ints, int len) {
         buildheap(ints, len);
         for (int i = len - 1; i >= 1; i--) {
-            change(ints, 0, i);
+            SortUtils.change(ints, 0, i);
             heapsize--;
             heapify(ints, 0);
         }

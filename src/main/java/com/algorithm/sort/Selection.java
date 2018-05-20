@@ -7,12 +7,6 @@ import com.algorithm.utils.SortUtils;
  */
 public class Selection {
 
-    public static void change(int[] ints, int i, int j) {
-        int temp = ints[i];
-        ints[i] = ints[j];
-        ints[j] = temp;
-    }
-
     public static void sort(int[] ints) {
 
         for (int i = 0; i < ints.length; i++) {
@@ -23,7 +17,7 @@ public class Selection {
                 }
             }
             if (min != i) {
-                change(ints, min, i);
+                SortUtils.change(ints, min, i);
             }
         }
 

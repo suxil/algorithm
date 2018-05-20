@@ -1,6 +1,10 @@
 package com.algorithm.sfdl;
 
+import com.algorithm.sort.Merge;
 import com.algorithm.utils.SortUtils;
+import com.sun.deploy.util.StringUtils;
+
+import java.util.Arrays;
 
 /**
  * @Author: luxq
@@ -65,14 +69,78 @@ public class Chapter2 {
                 }
             }
             if (min != i) {
-                int temp = ints[i];
-                ints[i] = ints[min];
-                ints[min] = temp;
+                SortUtils.change(ints, i, min);
             }
         }
 
         SortUtils.writeTerminalResult("选择", ints);
 
+    }
+
+    /**
+     * 归并排序算法
+     */
+    public static void mergeSort(int[] ints) {
+        mergeSort(ints, 0, ints.length - 1);
+    }
+
+    /**
+     * 归并排序算法
+     */
+    public static void mergeSort(int[] ints, int l, int r) {
+        if (l < r) {
+            int midle = (l + r) / 2;
+            mergeSort(ints, l, midle);
+            mergeSort(ints, midle + 1, r);
+            merge(ints, l, midle, r);
+        }
+    }
+
+    /**
+     * 合并两个已排好序的左右数组
+     */
+    public static void merge(int[] ints, int l, int midle, int r) {
+        int len = r - l + 1;
+        int[] temps = new int[len];
+        int idx = 0;
+        int i = l;
+        int j = midle + 1;
+        while (i <= midle && j <= r) {
+            temps[idx++] = ints[i] <= ints[j] ? ints[i++] : ints[j++];
+        }
+        while (i <= midle) {
+            temps[idx++] = ints[i++];
+        }
+        while (j <= r) {
+            temps[idx++] = ints[j++];
+        }
+        for (int k = 0; k < len; k++) {
+            ints[l + k] = temps[k];
+        }
+
+//        int n1 = midle - l;
+//        int n2 = r - midle;
+//        int[] lft = new int[n1 + 1];
+//        int[] rft = new int[n2 + 1];
+//        for (int i = 0; i < n1; i++) {
+//            lft[i] = ints[l + i];
+//        }
+//        for (int i = 0; i < n2; i++) {
+//            rft[i] = ints[midle + i];
+//        }
+//        lft[n1] = Integer.MAX_VALUE;
+//        rft[n2] = Integer.MAX_VALUE;
+//        int left = 0;
+//        int right = 0;
+//        for (int i = l; i < r; i++) {
+//            if (lft[left] <= rft[right]) {
+//                ints[i] = lft[left];
+//                left++;
+//            } else {
+//                ints[i] = rft[right];
+//                right++;
+//            }
+//        }
     }
 
 }

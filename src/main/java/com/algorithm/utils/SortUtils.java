@@ -24,4 +24,16 @@ public class SortUtils {
         }
     }
 
+    /**
+     * 交换两个元素
+     * @param ints
+     * @param i
+     * @param j
+     */
+    public static void change(int[] ints, int i, int j) {
+        int temp = ints[i];
+        ints[i] = ints[j];
+        ints[j] = temp;
+    }
+
 }
