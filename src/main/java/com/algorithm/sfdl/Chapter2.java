@@ -1,10 +1,6 @@
 package com.algorithm.sfdl;
 
-import com.algorithm.sort.Merge;
 import com.algorithm.utils.SortUtils;
-import com.sun.deploy.util.StringUtils;
-
-import java.util.Arrays;
 
 /**
  * @Author: luxq
