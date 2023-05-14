@@ -111,13 +111,13 @@ public class Subject2071 {
 
     /**
      * 返回需要吃药丸可以做任务的人数
-     * @param tasks
-     * @param tl
-     * @param tr
-     * @param workers
-     * @param wl
-     * @param wr
-     * @param strength
+     * @param tasks 任务所需能力数组
+     * @param tl 任务左边界
+     * @param tr 任务右边界
+     * @param workers 工作能力数组
+     * @param wl 工作能力左边界
+     * @param wr 工作能力右边界
+     * @param strength 吃药丸增加的能力大小
      * @return
      */
     public int process(int[] tasks, int tl, int tr, int[] workers, int wl, int wr, int strength) {
@@ -156,12 +156,100 @@ public class Subject2071 {
         return ans;
     }
 
+    /**
+     * 返回可以安排的最多任务数
+     * @param tasks 完成任务需要的力量数组
+     * @param workers 工人的力量数组
+     * @param pills 神奇药丸数量
+     * @param strength 可以增加的力量值
+     * @return
+     */
+    public int maxTaskAssign1(int[] tasks, int[] workers, int pills, int strength) {
+        // 帮助数组，记录工作所需能力数组。双端队列形式
+        int[] help = new int[workers.length];
+        Arrays.sort(tasks);
+        Arrays.sort(workers);
+        // 任务左边界
+        int l = 0;
+        // 任务右边界
+        int r = tasks.length;
+        // 中间变量
+        int m;
+        // 可以完成的最多任务数
+        int ans = 0;
+        while (l <= r) {
+            // 计算中间下标
+            m = (r + l) / 2;
+            // tasks[0...m-1]
+            // workers[能力强的m个人]
+            if (process1(tasks, 0, m - 1, workers, workers.length - m, workers.length - 1, strength, help) <= pills) {
+                ans = m;
+                l = m + 1;
+            } else {
+                r = m - 1;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 返回需要吃药丸可以做任务的人数
+     * @param tasks 任务所需能力数组
+     * @param tl 任务左边界
+     * @param tr 任务右边界
+     * @param workers 工作能力数组
+     * @param wl 工作能力左边界
+     * @param wr 工作能力右边界
+     * @param strength 吃药丸增加的能力大小
+     * @param help 帮助队列
+     * @return
+     */
+    public int process1(int[] tasks, int tl, int tr, int[] workers, int wl, int wr, int strength, int[] help) {
+        if (wl < 0) {
+            return Integer.MAX_VALUE;
+        }
+
+        // 帮助数组左边界
+        int l = 0;
+        // 帮助数组右边界
+        int r = 0;
+        int ti = tl;
+        int ans = 0;
+        for (int i = wl; i <= wr; i++) {
+            // i工作能力可以完成的任务，添加到帮助数组
+            for (; ti <= tr && tasks[ti] <= workers[i]; ti++) {
+                help[r++] = ti;
+            }
+            // 最左能力如果可以完成最左工作，完成最左任务
+            if (l < r && tasks[help[l]] <= workers[i]) {
+                l++;
+            } else {
+                // 吃药丸后可以完成的工作，添加到帮助数组
+                for (; ti <= tr && tasks[ti] <= workers[i] + strength; ti++) {
+                    help[r++] = ti;
+                }
+                // 存在可以完成的任务
+                if (l < r) {
+                    r--;
+                    ans++;
+                } else {
+                    return Integer.MAX_VALUE;
+                }
+            }
+        }
+        return ans;
+    }
+
     @Test
     public void maxTaskAssignTest() {
         Assert.assertEquals(maxTaskAssign(new int[]{3, 2, 1}, new int[]{0, 3, 3}, 1, 1), 3);
         Assert.assertEquals(maxTaskAssign(new int[]{5,4}, new int[]{0,0,0}, 1, 5), 1);
         Assert.assertEquals(maxTaskAssign(new int[]{10,15,30}, new int[]{0,10,10,10,10}, 3, 10), 2);
         Assert.assertEquals(maxTaskAssign(new int[]{5,9,8,5,9}, new int[]{1,6,4,2,6}, 1, 5), 3);
+        Assert.assertEquals(maxTaskAssign1(new int[]{3, 2, 1}, new int[]{0, 3, 3}, 1, 1), 3);
+        Assert.assertEquals(maxTaskAssign1(new int[]{5,4}, new int[]{0,0,0}, 1, 5), 1);
+        Assert.assertEquals(maxTaskAssign1(new int[]{10,15,30}, new int[]{0,10,10,10,10}, 3, 10), 2);
+        Assert.assertEquals(maxTaskAssign1(new int[]{5,9,8,5,9}, new int[]{1,6,4,2,6}, 1, 5), 3);
     }
 
 }
